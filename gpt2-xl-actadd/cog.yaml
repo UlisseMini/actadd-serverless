@@ -1,0 +1,7 @@
+build:
+  gpu: true
+  python_version: "3.11"
+  python_packages:
+    - transformer_lens
+
+predict: "predict.py:Predictor"
