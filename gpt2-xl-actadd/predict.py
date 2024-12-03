@@ -83,15 +83,16 @@ class Predictor(BasePredictor):
         prompt_sub: str = Input(description="The negative part of the actadd"),
         max_new_tokens: int = Input(description="The maximum number of new tokens to generate", default=50),
         seed: int = Input(description="Random seed for reproducibility", default=None),
-        sampling_kwargs: Dict[str, float] = Input(description="Sampling kwargs for generation", default=dict(
-            temperature=1.0, top_p=0.3, freq_penalty=1.0,
-        )),
+        temperature: float = Input(description="Temperature for generation", default=1.0),
+        top_p: float = Input(description="Top-p for generation", default=0.3),
+        freq_penalty: float = Input(description="Frequency penalty for generation", default=1.0),
         # TODO: Add padding method
     ) -> List[str]:
         if model is None: # for typing, cog prob handles this
             raise ValueError("Model is None, setup not finished yet.")
 
         # TODO: Handle prompt_batch too large for GPU memory (copy from old notebook)
+        sampling_kwargs = dict(temperature=temperature, top_p=top_p, freq_penalty=freq_penalty)
         generations: List[str] = generate_hooked(
             prompt_batch=prompt_batch,
             prompt_add=prompt_add,
