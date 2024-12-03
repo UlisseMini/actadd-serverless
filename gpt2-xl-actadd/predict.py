@@ -57,11 +57,24 @@ def generate_hooked(prompt_batch: List[str], prompt_add: str, prompt_sub: str, l
 
     with model.hooks(fwd_hooks=editing_hooks):
         tokenized = model.to_tokens(prompt_batch)
-        res_strs: List[str] = model.generate(
-            input=tokenized, do_sample=True, verbose=verbose, **sampling_kwargs, max_new_tokens=max_new_tokens
+        res_tokens: List[torch.Tensor] = model.generate(
+            input=tokenized, do_sample=True, verbose=verbose, **sampling_kwargs, max_new_tokens=max_new_tokens,
         )
+        res_strs: List[str] = model.to_string(res_tokens[:, 1:])
 
     return [x.replace("<|endoftext|>", "") for x in res_strs]
+
+
+"""
+import torch
+from transformer_lens import HookedTransformer
+
+MODEL_NAME = "gpt2-xl"
+CACHE_DIR = "weights"
+device = "cuda" if torch.cuda.is_available() else "cpu"
+
+model = HookedTransformer.from_pretrained(MODEL_NAME, cache_dir=CACHE_DIR, device=device, local_files_only=True)
+"""
 
 
 class Predictor(BasePredictor):
