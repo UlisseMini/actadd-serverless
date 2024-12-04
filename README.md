@@ -12,9 +12,9 @@ Idk where best prices will be so I'll start with replicate as it's the simplest 
 
 ## TODO
 
-- [ ] Deploy working cog model to replicate
+- [x] Deploy working cog model to replicate (https://replicate.com/ulissemini/gpt2-xl-actadd)
 - [ ] Deploy other models (llama, etc.)
 - [ ] Get perf close to the wonderful 0.25$ / 1M tokens for https://replicate.com/meta/meta-llama-3-8b (maybe download and modify their cog model?)
 - [ ] Re-run [grid search](https://github.com/UlisseMini/actadd-rebuttals/blob/master/figures/positive_n1024_fp_perplexity_heatmap.png) results with fast serverless API
-- [ ] Ask ppl working on actadd stuff what features they'd like in serverless APIs (e.g. returning logits, perplexity, embeddings, more batching, etc.)
+- [ ] Ask ppl working on actadd stuff what features they'd like in serverless APIs (e.g. returning logits, perplexity, embeddings, more batching, etc.) See if you can make this useful to someone.
 
